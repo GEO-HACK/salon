@@ -18,7 +18,7 @@ export default function GalleryPage() {
     <main>
       {/* Header */}
       <section className="bg-brand-pink-light py-20 text-center">
-        <p className="text-brand-pink text-xs tracking-[0.35em] uppercase mb-3">Our Work</p>
+        <p className="text-brand-gold text-xs tracking-[0.35em] uppercase mb-3">Our Work</p>
         <h1 className="font-serif text-5xl md:text-6xl text-brand-charcoal">Gallery</h1>
         <p className="mt-4 text-neutral-500 max-w-md mx-auto text-sm leading-relaxed">
           A glimpse into the transformations that happen inside Beauty Brand every single day.

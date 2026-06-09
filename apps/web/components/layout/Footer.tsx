@@ -15,7 +15,7 @@ export default function Footer() {
 
           {/* Brand column */}
           <div>
-            <p className="font-serif text-xl tracking-[0.2em] uppercase text-brand-pink mb-3">
+            <p className="font-serif text-xl tracking-[0.2em] uppercase text-brand-gold mb-3">
               Beauty Brand
             </p>
             <p className="text-sm text-neutral-400 leading-relaxed max-w-xs">

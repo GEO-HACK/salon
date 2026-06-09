@@ -10,11 +10,13 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          pink: '#C9728A',
-          'pink-light': '#F9E8EE',
-          'pink-dark': '#9B4F63',
-          cream: '#FFFDF9',
-          charcoal: '#1C1C1C',
+          pink: '#D81B60',
+          'pink-light': '#FCE4EC',
+          'pink-dark': '#880E4F',
+          gold: '#C9973A',
+          'gold-light': '#FFF8E7',
+          cream: '#FFFBF8',
+          charcoal: '#1C1C1E',
         },
       },
       fontFamily: {

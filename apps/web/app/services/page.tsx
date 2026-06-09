@@ -48,7 +48,7 @@ export default function ServicesPage() {
     <main>
       {/* Page header */}
       <section className="bg-brand-pink-light py-20 text-center">
-        <p className="text-brand-pink text-xs tracking-[0.35em] uppercase mb-3">What We Offer</p>
+        <p className="text-brand-gold text-xs tracking-[0.35em] uppercase mb-3">What We Offer</p>
         <h1 className="font-serif text-5xl md:text-6xl text-brand-charcoal">Our Services</h1>
         <p className="mt-4 text-neutral-500 max-w-md mx-auto text-sm leading-relaxed">
           From hair to nails to skin — every service is performed by trained experts using

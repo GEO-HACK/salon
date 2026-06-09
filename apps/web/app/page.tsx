@@ -79,7 +79,7 @@ export default function HomePage() {
 
         <div className="relative max-w-6xl mx-auto px-6 py-28">
           <div className="max-w-2xl">
-            <p className="text-brand-pink text-xs tracking-[0.35em] uppercase mb-5">
+            <p className="text-brand-gold text-xs tracking-[0.35em] uppercase mb-5">
               Nairobi&apos;s Premier Beauty Destination
             </p>
             <h1 className="font-serif text-5xl md:text-7xl leading-[1.1] text-brand-charcoal mb-6">
@@ -113,7 +113,7 @@ export default function HomePage() {
       <section className="bg-brand-pink-light py-24">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-14">
-            <p className="text-brand-pink text-xs tracking-[0.35em] uppercase mb-3">What We Offer</p>
+            <p className="text-brand-gold text-xs tracking-[0.35em] uppercase mb-3">What We Offer</p>
             <h2 className="font-serif text-4xl md:text-5xl text-brand-charcoal">Our Services</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -146,13 +146,13 @@ export default function HomePage() {
       <section className="bg-white py-24">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-14">
-            <p className="text-brand-pink text-xs tracking-[0.35em] uppercase mb-3">Why Beauty Brand</p>
+            <p className="text-brand-gold text-xs tracking-[0.35em] uppercase mb-3">Why Beauty Brand</p>
             <h2 className="font-serif text-4xl md:text-5xl text-brand-charcoal">The Difference</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {features.map((feature, i) => (
               <div key={feature.title} className="text-center">
-                <div className="w-12 h-12 rounded-full bg-brand-pink-light text-brand-pink flex items-center justify-center text-lg font-serif mx-auto mb-5">
+                <div className="w-12 h-12 rounded-full bg-brand-gold-light text-brand-gold flex items-center justify-center text-lg font-serif mx-auto mb-5">
                   {i + 1}
                 </div>
                 <h3 className="font-serif text-xl text-brand-charcoal mb-3">{feature.title}</h3>
@@ -167,13 +167,13 @@ export default function HomePage() {
       <section className="bg-brand-charcoal py-24">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-14">
-            <p className="text-brand-pink text-xs tracking-[0.35em] uppercase mb-3">Clients Love Us</p>
+            <p className="text-brand-gold text-xs tracking-[0.35em] uppercase mb-3">Clients Love Us</p>
             <h2 className="font-serif text-4xl md:text-5xl text-white">What They Say</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((t) => (
               <div key={t.name} className="bg-neutral-800/50 rounded-2xl p-8 flex flex-col gap-4">
-                <p className="text-brand-pink text-2xl font-serif leading-none">&ldquo;</p>
+                <p className="text-brand-gold text-2xl font-serif leading-none">&ldquo;</p>
                 <p className="text-neutral-300 text-sm leading-relaxed flex-1">{t.quote}</p>
                 <div>
                   <p className="text-white text-sm font-medium">{t.name}</p>
