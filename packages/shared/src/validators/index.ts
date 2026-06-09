@@ -32,6 +32,18 @@ export const CreateBookingSchema = z.object({
   notes: z.string().max(500).optional().default(''),
 })
 
+export const UpdateProfileSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  phone: z.string().regex(/^\+254\d{9}$/, 'Phone must be in E.164 format e.g. +254712345678'),
+})
+
+export const ChangePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'Current password is required'),
+  newPassword: z.string().min(8, 'New password must be at least 8 characters'),
+})
+
+export type UpdateProfileInput = z.infer<typeof UpdateProfileSchema>
+export type ChangePasswordInput = z.infer<typeof ChangePasswordSchema>
 export type RegisterInput = z.infer<typeof RegisterSchema>
 export type LoginInput = z.infer<typeof LoginSchema>
 export type CreateServiceInput = z.infer<typeof CreateServiceSchema>

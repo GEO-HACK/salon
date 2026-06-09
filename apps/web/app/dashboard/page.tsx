@@ -42,12 +42,16 @@ export default async function DashboardPage() {
             <p className="text-xs text-brand-gold mt-3 tracking-wide">Coming in Phase 4</p>
           </div>
 
-          <div className="bg-white rounded-2xl p-7 border border-neutral-100">
+          <Link
+            href="/dashboard/profile"
+            className="bg-white rounded-2xl p-7 border border-neutral-100 hover:border-brand-pink hover:shadow-sm transition-all group"
+          >
             <span className="text-3xl mb-4 block">👤</span>
-            <p className="font-serif text-lg text-brand-charcoal">Profile</p>
-            <p className="text-sm text-neutral-500 mt-1">Update your contact details</p>
-            <p className="text-xs text-brand-gold mt-3 tracking-wide">Coming soon</p>
-          </div>
+            <p className="font-serif text-lg text-brand-charcoal group-hover:text-brand-pink transition-colors">
+              Profile
+            </p>
+            <p className="text-sm text-neutral-500 mt-1">Update your name, phone and password</p>
+          </Link>
         </div>
 
         {/* Account info */}
