@@ -45,7 +45,7 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className="block text-xs tracking-widest uppercase text-neutral-400 mb-2">
+                  <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                     Full Name
                   </label>
                   <input
@@ -55,11 +55,11 @@ export default function ContactPage() {
                     value={form.name}
                     onChange={handleChange}
                     placeholder="Amina Wanjiru"
-                    className="w-full border border-neutral-200 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-300 focus:outline-none focus:border-brand-pink transition-colors"
+                    className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs tracking-widest uppercase text-neutral-400 mb-2">
+                  <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                     Email
                   </label>
                   <input
@@ -69,11 +69,11 @@ export default function ContactPage() {
                     value={form.email}
                     onChange={handleChange}
                     placeholder="you@email.com"
-                    className="w-full border border-neutral-200 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-300 focus:outline-none focus:border-brand-pink transition-colors"
+                    className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs tracking-widest uppercase text-neutral-400 mb-2">
+                  <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                     Phone (optional)
                   </label>
                   <input
@@ -82,11 +82,11 @@ export default function ContactPage() {
                     value={form.phone}
                     onChange={handleChange}
                     placeholder="+254 7XX XXX XXX"
-                    className="w-full border border-neutral-200 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-300 focus:outline-none focus:border-brand-pink transition-colors"
+                    className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs tracking-widest uppercase text-neutral-400 mb-2">
+                  <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                     Message
                   </label>
                   <textarea
@@ -96,7 +96,7 @@ export default function ContactPage() {
                     value={form.message}
                     onChange={handleChange}
                     placeholder="How can we help you?"
-                    className="w-full border border-neutral-200 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-300 focus:outline-none focus:border-brand-pink transition-colors resize-none"
+                    className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors resize-none"
                   />
                 </div>
                 <button

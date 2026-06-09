@@ -28,7 +28,7 @@ export default function RegisterPage() {
         <div className="bg-white rounded-3xl shadow-sm border border-neutral-100 p-10">
           <div className="text-center mb-8">
             <p className="font-serif text-3xl text-brand-charcoal mb-1">Create Account</p>
-            <p className="text-sm text-neutral-400">Join us and start booking your appointments</p>
+            <p className="text-sm text-neutral-600">Join us and start booking your appointments</p>
           </div>
 
           {error && (
@@ -39,7 +39,7 @@ export default function RegisterPage() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-xs tracking-widest uppercase text-neutral-400 mb-2">
+              <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                 Full Name
               </label>
               <input
@@ -50,12 +50,12 @@ export default function RegisterPage() {
                 value={form.name}
                 onChange={handleChange}
                 placeholder="Amina Wanjiru"
-                className="w-full border border-neutral-200 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-300 focus:outline-none focus:border-brand-pink transition-colors"
+                className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-xs tracking-widest uppercase text-neutral-400 mb-2">
+              <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                 Email
               </label>
               <input
@@ -65,12 +65,12 @@ export default function RegisterPage() {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="you@email.com"
-                className="w-full border border-neutral-200 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-300 focus:outline-none focus:border-brand-pink transition-colors"
+                className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-xs tracking-widest uppercase text-neutral-400 mb-2">
+              <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                 Phone Number
               </label>
               <input
@@ -80,12 +80,12 @@ export default function RegisterPage() {
                 value={form.phone}
                 onChange={handleChange}
                 placeholder="+254 7XX XXX XXX"
-                className="w-full border border-neutral-200 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-300 focus:outline-none focus:border-brand-pink transition-colors"
+                className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-xs tracking-widest uppercase text-neutral-400 mb-2">
+              <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                 Password
               </label>
               <input
@@ -96,7 +96,7 @@ export default function RegisterPage() {
                 value={form.password}
                 onChange={handleChange}
                 placeholder="Min. 8 characters"
-                className="w-full border border-neutral-200 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-300 focus:outline-none focus:border-brand-pink transition-colors"
+                className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
               />
             </div>
 
@@ -109,7 +109,7 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          <p className="text-center text-sm text-neutral-400 mt-8">
+          <p className="text-center text-sm text-neutral-600 mt-8">
             Already have an account?{' '}
             <Link href="/login" className="text-brand-pink hover:text-brand-pink-dark transition-colors">
               Sign In

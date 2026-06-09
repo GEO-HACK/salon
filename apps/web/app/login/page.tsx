@@ -28,7 +28,7 @@ export default function LoginPage() {
         <div className="bg-white rounded-3xl shadow-sm border border-neutral-100 p-10">
           <div className="text-center mb-8">
             <p className="font-serif text-3xl text-brand-charcoal mb-1">Welcome Back</p>
-            <p className="text-sm text-neutral-400">Sign in to manage your bookings</p>
+            <p className="text-sm text-neutral-600">Sign in to manage your bookings</p>
           </div>
 
           {error && (
@@ -39,7 +39,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-xs tracking-widest uppercase text-neutral-400 mb-2">
+              <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                 Email
               </label>
               <input
@@ -49,13 +49,13 @@ export default function LoginPage() {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="you@email.com"
-                className="w-full border border-neutral-200 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-300 focus:outline-none focus:border-brand-pink transition-colors"
+                className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-xs tracking-widest uppercase text-neutral-400">
+                <label className="text-xs tracking-widest uppercase text-neutral-700">
                   Password
                 </label>
                 <Link
@@ -72,7 +72,7 @@ export default function LoginPage() {
                 value={form.password}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full border border-neutral-200 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-300 focus:outline-none focus:border-brand-pink transition-colors"
+                className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
               />
             </div>
 
@@ -85,7 +85,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p className="text-center text-sm text-neutral-400 mt-8">
+          <p className="text-center text-sm text-neutral-600 mt-8">
             Don&apos;t have an account?{' '}
             <Link href="/register" className="text-brand-pink hover:text-brand-pink-dark transition-colors">
               Register
