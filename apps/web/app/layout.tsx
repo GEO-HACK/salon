@@ -3,6 +3,7 @@ import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import AuthSessionProvider from '@/components/providers/SessionProvider'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -25,9 +26,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body>
-        <Navbar />
-        {children}
-        <Footer />
+        <AuthSessionProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </AuthSessionProvider>
       </body>
     </html>
   )

@@ -2,8 +2,11 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export default function RegisterPage() {
+  const router = useRouter()
   const [form, setForm] = useState({ name: '', email: '', phone: '', password: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -16,15 +19,46 @@ export default function RegisterPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
-    // TODO: wire to POST /api/auth/register in Phase 2
-    setLoading(false)
-    setError('Registration not yet configured — coming in Phase 2.')
+    setError('')
+
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        setError(data.error || 'Registration failed. Please try again.')
+        setLoading(false)
+        return
+      }
+
+      const result = await signIn('credentials', {
+        email: form.email,
+        password: form.password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        setError('Account created but sign-in failed. Please log in manually.')
+        setLoading(false)
+        return
+      }
+
+      router.push('/dashboard')
+      router.refresh()
+    } catch {
+      setError('Network error. Please check your connection and try again.')
+      setLoading(false)
+    }
   }
 
   return (
     <main className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-brand-cream px-6 py-16">
       <div className="w-full max-w-md">
-        {/* Card */}
         <div className="bg-white rounded-3xl shadow-sm border border-neutral-100 p-10">
           <div className="text-center mb-8">
             <p className="font-serif text-3xl text-brand-charcoal mb-1">Create Account</p>

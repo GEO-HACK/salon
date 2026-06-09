@@ -2,8 +2,11 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
+  const router = useRouter()
   const [form, setForm] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -16,15 +19,28 @@ export default function LoginPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
-    // TODO: wire to NextAuth / POST /api/auth/login in Phase 2
+    setError('')
+
+    const result = await signIn('credentials', {
+      email: form.email,
+      password: form.password,
+      redirect: false,
+    })
+
     setLoading(false)
-    setError('Authentication not yet configured — coming in Phase 2.')
+
+    if (result?.error) {
+      setError('Invalid email or password. Please try again.')
+      return
+    }
+
+    router.push('/dashboard')
+    router.refresh()
   }
 
   return (
     <main className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-brand-cream px-6 py-16">
       <div className="w-full max-w-md">
-        {/* Card */}
         <div className="bg-white rounded-3xl shadow-sm border border-neutral-100 p-10">
           <div className="text-center mb-8">
             <p className="font-serif text-3xl text-brand-charcoal mb-1">Welcome Back</p>
