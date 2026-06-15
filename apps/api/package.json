@@ -6,7 +6,9 @@
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "seed:admin": "ts-node-dev --transpile-only src/scripts/seedAdmin.ts",
+    "seed:catalog": "ts-node-dev --transpile-only src/scripts/seedCatalog.ts"
   },
   "dependencies": {
     "@beauty-brand/shared": "workspace:*",

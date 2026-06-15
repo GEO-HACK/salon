@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import PasswordInput from '@/components/ui/PasswordInput'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -122,15 +123,13 @@ export default function RegisterPage() {
               <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                 Password
               </label>
-              <input
-                type="password"
+              <PasswordInput
                 name="password"
                 required
                 minLength={8}
                 value={form.password}
                 onChange={handleChange}
                 placeholder="Min. 8 characters"
-                className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
               />
             </div>
 

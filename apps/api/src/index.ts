@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import path from 'path'
 import { connectDB } from './config/db'
 import authRoutes from './routes/auth.routes'
 import userRoutes from './routes/user.routes'
@@ -8,7 +9,7 @@ import slotRoutes from './routes/slot.routes'
 import bookingRoutes from './routes/booking.routes'
 import chatRoutes from './routes/chat.routes'
 
-dotenv.config()
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
 const app = express()
 const PORT = process.env.PORT || 5000

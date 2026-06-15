@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import PasswordInput from '@/components/ui/PasswordInput'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -81,14 +82,12 @@ export default function LoginPage() {
                   Forgot password?
                 </Link>
               </div>
-              <input
-                type="password"
+              <PasswordInput
                 name="password"
                 required
                 value={form.password}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
               />
             </div>
 

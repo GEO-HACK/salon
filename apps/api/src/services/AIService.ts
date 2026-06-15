@@ -1,6 +1,17 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
+// Lazily create the client so the API key is read at request time —
+// after dotenv.config() has run. Reading it at import time would be too
+// early: ES module imports execute before index.ts calls dotenv.config().
+let genAIClient: GoogleGenerativeAI | null = null
+function getClient() {
+  if (!genAIClient) {
+    const key = process.env.GEMINI_API_KEY
+    if (!key) throw new Error('GEMINI_API_KEY is not set')
+    genAIClient = new GoogleGenerativeAI(key)
+  }
+  return genAIClient
+}
 
 const CREATE_BOOKING_FUNCTION = {
   name: 'create_booking',
@@ -60,8 +71,8 @@ export async function chatWithAgent(
   services: any[],
   slots: any[]
 ): Promise<AgentResponse> {
-  const model = genAI.getGenerativeModel({
-    model: 'gemini-1.5-flash',
+  const model = getClient().getGenerativeModel({
+    model: 'gemini-2.5-flash',
     systemInstruction: buildSystemPrompt(services, slots),
     tools: [{ functionDeclarations: [CREATE_BOOKING_FUNCTION] }],
   })

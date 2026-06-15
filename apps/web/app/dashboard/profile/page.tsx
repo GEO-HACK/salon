@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import PasswordInput from '@/components/ui/PasswordInput'
 
 interface UserData {
   _id: string
@@ -250,15 +251,13 @@ export default function ProfilePage() {
               <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                 Current Password
               </label>
-              <input
-                type="password"
+              <PasswordInput
                 required
                 value={passwordForm.currentPassword}
                 onChange={(e) =>
                   setPasswordForm((p) => ({ ...p, currentPassword: e.target.value }))
                 }
                 placeholder="••••••••"
-                className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
               />
             </div>
 
@@ -266,8 +265,7 @@ export default function ProfilePage() {
               <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                 New Password
               </label>
-              <input
-                type="password"
+              <PasswordInput
                 required
                 minLength={8}
                 value={passwordForm.newPassword}
@@ -275,7 +273,6 @@ export default function ProfilePage() {
                   setPasswordForm((p) => ({ ...p, newPassword: e.target.value }))
                 }
                 placeholder="Min. 8 characters"
-                className="w-full border border-neutral-300 rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none focus:border-brand-pink transition-colors"
               />
             </div>
 
@@ -283,8 +280,7 @@ export default function ProfilePage() {
               <label className="block text-xs tracking-widest uppercase text-neutral-700 mb-2">
                 Confirm New Password
               </label>
-              <input
-                type="password"
+              <PasswordInput
                 required
                 minLength={8}
                 value={passwordForm.confirmPassword}
@@ -292,12 +288,12 @@ export default function ProfilePage() {
                   setPasswordForm((p) => ({ ...p, confirmPassword: e.target.value }))
                 }
                 placeholder="••••••••"
-                className={`w-full border rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-neutral-400 focus:outline-none transition-colors ${
+                className={
                   passwordForm.confirmPassword &&
                   passwordForm.confirmPassword !== passwordForm.newPassword
                     ? 'border-rose-300 focus:border-rose-400'
-                    : 'border-neutral-300 focus:border-brand-pink'
-                }`}
+                    : ''
+                }
               />
               {passwordForm.confirmPassword &&
                 passwordForm.confirmPassword !== passwordForm.newPassword && (
