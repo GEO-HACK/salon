@@ -66,8 +66,15 @@ export type AgentResponse =
   | { type: 'message'; text: string }
   | { type: 'tool_call'; name: string; args: Record<string, string> }
 
-const MODEL = 'gemini-2.0-flash'
 const MAX_RETRIES = 3
+
+// Configurable so you can swap models without code changes — set GEMINI_MODEL
+// in .env. Read at request time (not import time) so dotenv has already run.
+// Different models have different free-tier quotas; gemini-2.5-flash is a
+// reliable free-tier default.
+function getModelName() {
+  return process.env.GEMINI_MODEL || 'gemini-2.5-flash'
+}
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
@@ -84,7 +91,7 @@ export async function chatWithAgent(
   slots: any[]
 ): Promise<AgentResponse> {
   const model = getClient().getGenerativeModel({
-    model: MODEL,
+    model: getModelName(),
     systemInstruction: buildSystemPrompt(services, slots),
     tools: [{ functionDeclarations: [CREATE_BOOKING_FUNCTION] }],
   })
