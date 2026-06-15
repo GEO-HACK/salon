@@ -11,22 +11,27 @@ import { createBooking } from './BookingService'
 // Client — lazily created so the API key/base URL are read at request time,
 // after dotenv.config() has run (ES module imports execute before index.ts
 // calls dotenv.config(), so reading env at import time would be too early).
-// Grok (xAI) is OpenAI-compatible: same SDK, different baseURL.
+//
+// Provider-agnostic: any OpenAI-compatible endpoint works by setting
+// AI_BASE_URL + AI_MODEL. Defaults to Groq's free tier (no credit card,
+// Llama 3.3 70B supports the agentic tool loop). To use xAI Grok instead:
+//   AI_API_KEY=<xai key>  AI_BASE_URL=https://api.x.ai/v1  AI_MODEL=grok-3
 // ---------------------------------------------------------------------------
 let client: OpenAI | null = null
 function getClient() {
   if (!client) {
-    const apiKey = process.env.XAI_API_KEY
-    if (!apiKey) throw new Error('XAI_API_KEY is not set')
-    client = new OpenAI({ apiKey, baseURL: 'https://api.x.ai/v1' })
+    const apiKey = process.env.AI_API_KEY
+    if (!apiKey) throw new Error('AI_API_KEY is not set')
+    const baseURL = process.env.AI_BASE_URL || 'https://api.groq.com/openai/v1'
+    client = new OpenAI({ apiKey, baseURL })
   }
   return client
 }
 
-// Configurable without code changes — set XAI_MODEL in .env. Read at request
+// Configurable without code changes — set AI_MODEL in .env. Read at request
 // time for the same import-order reason as the client above.
 function getModelName() {
-  return process.env.XAI_MODEL || 'grok-3'
+  return process.env.AI_MODEL || 'llama-3.3-70b-versatile'
 }
 
 const MAX_RETRIES = 3
@@ -35,7 +40,7 @@ const MAX_TOOL_ITERATIONS = 10
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-// xAI/OpenAI occasionally return 503 (high demand) or 429 (rate limit).
+// Providers occasionally return 503 (high demand) or 429 (rate limit).
 // These are transient — retry with exponential backoff before giving up.
 function isTransient(err: any) {
   const msg = String(err?.message ?? '')
