@@ -4,6 +4,9 @@ import dotenv from 'dotenv'
 import { connectDB } from './config/db'
 import authRoutes from './routes/auth.routes'
 import userRoutes from './routes/user.routes'
+import slotRoutes from './routes/slot.routes'
+import bookingRoutes from './routes/booking.routes'
+import chatRoutes from './routes/chat.routes'
 
 dotenv.config()
 
@@ -19,6 +22,9 @@ app.get('/health', (_req, res) => {
 
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/slots', slotRoutes)
+app.use('/api/bookings', bookingRoutes)
+app.use('/api/chat', chatRoutes)
 
 connectDB()
   .then(() => {

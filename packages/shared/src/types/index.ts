@@ -42,7 +42,9 @@ export type BookingStatus = 'pending' | 'confirmed' | 'cancelled' | 'completed'
 
 export interface IBooking {
   _id: string
-  userId: string
+  userId?: string
+  guestName?: string
+  guestPhone?: string
   serviceId: string
   slotId: string
   status: BookingStatus
@@ -50,6 +52,11 @@ export interface IBooking {
   reminderSent: boolean
   notes: string
   createdAt: Date
+}
+
+export interface ConversationMessage {
+  role: 'user' | 'assistant'
+  content: string
 }
 
 export type NotificationType = 'confirmation' | 'reminder' | 'admin_alert'

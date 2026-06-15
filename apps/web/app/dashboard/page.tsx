@@ -35,12 +35,16 @@ export default async function DashboardPage() {
             <p className="text-sm text-neutral-500 mt-1">Browse and book any of our services</p>
           </Link>
 
-          <div className="bg-white rounded-2xl p-7 border border-neutral-100">
+          <Link
+            href="/dashboard/bookings"
+            className="bg-white rounded-2xl p-7 border border-neutral-100 hover:border-brand-pink hover:shadow-sm transition-all group"
+          >
             <span className="text-3xl mb-4 block">📅</span>
-            <p className="font-serif text-lg text-brand-charcoal">My Bookings</p>
+            <p className="font-serif text-lg text-brand-charcoal group-hover:text-brand-pink transition-colors">
+              My Bookings
+            </p>
             <p className="text-sm text-neutral-500 mt-1">View and manage your appointments</p>
-            <p className="text-xs text-brand-gold mt-3 tracking-wide">Coming in Phase 4</p>
-          </div>
+          </Link>
 
           <Link
             href="/dashboard/profile"

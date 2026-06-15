@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import AuthSessionProvider from '@/components/providers/SessionProvider'
+import ChatWidget from '@/components/ChatWidget'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           {children}
           <Footer />
+          <ChatWidget />
         </AuthSessionProvider>
       </body>
     </html>
