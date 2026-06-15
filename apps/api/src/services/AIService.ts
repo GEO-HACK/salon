@@ -66,10 +66,13 @@ export async function chatWithAgent(
     tools: [{ functionDeclarations: [CREATE_BOOKING_FUNCTION] }],
   })
 
-  const history = messages.slice(0, -1).map((m) => ({
-    role: m.role === 'assistant' ? 'model' : 'user',
+  const rawHistory = messages.slice(0, -1).map((m) => ({
+    role: (m.role === 'assistant' ? 'model' : 'user') as 'user' | 'model',
     parts: [{ text: m.content }],
   }))
+  // Gemini requires history to start with a 'user' turn (skip any leading assistant/welcome messages)
+  const firstUserIdx = rawHistory.findIndex((m) => m.role === 'user')
+  const history = firstUserIdx >= 0 ? rawHistory.slice(firstUserIdx) : []
 
   const lastMessage = messages[messages.length - 1]
   const chat = model.startChat({ history })
