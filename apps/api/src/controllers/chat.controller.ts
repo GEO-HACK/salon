@@ -37,7 +37,9 @@ export async function chat(req: Request, res: Response) {
     const { clientName, phone, serviceId, slotId } = response.args
 
     try {
-      const booking = await createBooking({ guestName: clientName, guestPhone: phone, serviceId, slotId })
+      // optionalAuth attaches req.userId when the client is logged in, so the
+      // booking links to their account; guests still book with just name + phone.
+      const booking = await createBooking({ userId: req.userId, guestName: clientName, guestPhone: phone, serviceId, slotId })
 
       const [service, slot] = await Promise.all([
         Service.findById(serviceId).lean(),

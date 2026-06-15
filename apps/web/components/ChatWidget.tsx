@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -41,6 +42,7 @@ const WELCOME: Message = {
 }
 
 export default function ChatWidget() {
+  const { data: session } = useSession()
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([WELCOME])
   const [input, setInput] = useState('')
@@ -65,7 +67,11 @@ export default function ChatWidget() {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          // Send the auth token when logged in so the booking links to the account
+          ...(session?.apiToken ? { Authorization: `Bearer ${session.apiToken}` } : {}),
+        },
         body: JSON.stringify({ messages: nextMessages }),
       })
 
