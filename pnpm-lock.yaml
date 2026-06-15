@@ -38,6 +38,9 @@ importers:
       mongoose:
         specifier: ^9.6.3
         version: 9.6.3
+      openai:
+        specifier: ^6.42.0
+        version: 6.42.0
     devDependencies:
       '@types/bcryptjs':
         specifier: ^3.0.0
@@ -1483,6 +1486,18 @@ packages:
     dependencies:
       wrappy: 1.0.2
     dev: true
+
+  /openai@6.42.0:
+    resolution: {integrity: sha512-1WFEt/uXMXOLhYRNkgJWo08Y2YNvNwpVU72K7ibrWgWpNOXd4VojXLbe6SQ4bLiUQ3Y8jz4IiyVkylJCL1DtZg==}
+    peerDependencies:
+      ws: ^8.18.0
+      zod: ^3.25 || ^4.0
+    peerDependenciesMeta:
+      ws:
+        optional: true
+      zod:
+        optional: true
+    dev: false
 
   /openid-client@5.7.1:
     resolution: {integrity: sha512-jDBPgSVfTnkIh71Hg9pRvtJc6wTwqjRkN88+gCFtYWrlP4Yx2Dsrow8uPi3qLr/aeymPF3o2+dS+wOpglK04ew==}
