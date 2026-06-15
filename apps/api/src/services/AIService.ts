@@ -66,13 +66,25 @@ export type AgentResponse =
   | { type: 'message'; text: string }
   | { type: 'tool_call'; name: string; args: Record<string, string> }
 
+const MODEL = 'gemini-2.0-flash'
+const MAX_RETRIES = 3
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
+// Gemini occasionally returns 503 (high demand) or 429 (rate limit).
+// These are transient — retry with exponential backoff before giving up.
+function isTransient(err: any) {
+  const msg = String(err?.message ?? '')
+  return msg.includes('503') || msg.includes('429') || msg.includes('overloaded') || msg.includes('high demand')
+}
+
 export async function chatWithAgent(
   messages: Array<{ role: 'user' | 'assistant'; content: string }>,
   services: any[],
   slots: any[]
 ): Promise<AgentResponse> {
   const model = getClient().getGenerativeModel({
-    model: 'gemini-2.5-flash',
+    model: MODEL,
     systemInstruction: buildSystemPrompt(services, slots),
     tools: [{ functionDeclarations: [CREATE_BOOKING_FUNCTION] }],
   })
@@ -86,18 +98,30 @@ export async function chatWithAgent(
   const history = firstUserIdx >= 0 ? rawHistory.slice(firstUserIdx) : []
 
   const lastMessage = messages[messages.length - 1]
-  const chat = model.startChat({ history })
-  const result = await chat.sendMessage(lastMessage.content)
-  const response = result.response
 
-  const functionCall = response.functionCalls()?.[0]
-  if (functionCall) {
-    return {
-      type: 'tool_call',
-      name: functionCall.name,
-      args: functionCall.args as Record<string, string>,
+  let lastErr: any
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    try {
+      const chat = model.startChat({ history })
+      const result = await chat.sendMessage(lastMessage.content)
+      const response = result.response
+
+      const functionCall = response.functionCalls()?.[0]
+      if (functionCall) {
+        return {
+          type: 'tool_call',
+          name: functionCall.name,
+          args: functionCall.args as Record<string, string>,
+        }
+      }
+
+      return { type: 'message', text: response.text() }
+    } catch (err) {
+      lastErr = err
+      if (!isTransient(err) || attempt === MAX_RETRIES - 1) throw err
+      await sleep(500 * 2 ** attempt) // 500ms, 1s, 2s
     }
   }
 
-  return { type: 'message', text: response.text() }
+  throw lastErr
 }

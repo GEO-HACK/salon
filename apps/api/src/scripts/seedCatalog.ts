@@ -1,3 +1,8 @@
+import { webcrypto } from 'crypto'
+// ts-node-dev's worker process doesn't always expose the global `crypto`
+// that the MongoDB driver requires — polyfill it before connecting.
+if (!globalThis.crypto) (globalThis as any).crypto = webcrypto
+
 import dotenv from 'dotenv'
 import path from 'path'
 import mongoose from 'mongoose'

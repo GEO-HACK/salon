@@ -19,7 +19,19 @@ export async function chat(req: Request, res: Response) {
       .lean(),
   ])
 
-  const response = await chatWithAgent(messages, services, slots)
+  let response
+  try {
+    response = await chatWithAgent(messages, services, slots)
+  } catch (err: any) {
+    console.error('[chat] AI request failed:', err.message)
+    const overloaded = /503|429|overloaded|high demand/.test(String(err.message))
+    return res.json({
+      type: 'message',
+      message: overloaded
+        ? "Our assistant is a little busy right now — please try sending that again in a few seconds. 🙏"
+        : "Sorry, I had trouble responding just now. Please try again in a moment.",
+    })
+  }
 
   if (response.type === 'tool_call' && response.name === 'create_booking') {
     const { clientName, phone, serviceId, slotId } = response.args
