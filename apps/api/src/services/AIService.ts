@@ -1,25 +1,21 @@
-import Anthropic from '@anthropic-ai/sdk'
-import type { MessageParam } from '@anthropic-ai/sdk/resources/messages'
+import { GoogleGenerativeAI } from '@google/generative-ai'
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
 
-const CREATE_BOOKING_TOOL: Anthropic.Tool = {
+const CREATE_BOOKING_FUNCTION = {
   name: 'create_booking',
   description: 'Creates a confirmed booking once all client details have been collected.',
-  input_schema: {
+  parameters: {
     type: 'object',
     properties: {
       clientName: { type: 'string', description: 'Full name of the client' },
-      phone: {
-        type: 'string',
-        description: 'Client phone in E.164 format e.g. +254712345678',
-      },
-      serviceId: { type: 'string', description: 'ID of the service to book' },
-      slotId: { type: 'string', description: 'ID of the time slot to book' },
+      phone: { type: 'string', description: 'Client phone in E.164 format e.g. +254712345678' },
+      serviceId: { type: 'string', description: 'MongoDB ID of the chosen service' },
+      slotId: { type: 'string', description: 'MongoDB ID of the chosen time slot' },
     },
     required: ['clientName', 'phone', 'serviceId', 'slotId'],
   },
-}
+} as any
 
 function buildSystemPrompt(services: any[], slots: any[]) {
   const servicesList = services
@@ -55,16 +51,39 @@ Available slots (upcoming):
 ${slotsList || 'No slots available right now. Apologise and ask them to check back soon.'}`
 }
 
+export type AgentResponse =
+  | { type: 'message'; text: string }
+  | { type: 'tool_call'; name: string; args: Record<string, string> }
+
 export async function chatWithAgent(
   messages: Array<{ role: 'user' | 'assistant'; content: string }>,
   services: any[],
   slots: any[]
-) {
-  return anthropic.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 1024,
-    system: buildSystemPrompt(services, slots),
-    tools: [CREATE_BOOKING_TOOL],
-    messages: messages as MessageParam[],
+): Promise<AgentResponse> {
+  const model = genAI.getGenerativeModel({
+    model: 'gemini-1.5-flash',
+    systemInstruction: buildSystemPrompt(services, slots),
+    tools: [{ functionDeclarations: [CREATE_BOOKING_FUNCTION] }],
   })
+
+  const history = messages.slice(0, -1).map((m) => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: m.content }],
+  }))
+
+  const lastMessage = messages[messages.length - 1]
+  const chat = model.startChat({ history })
+  const result = await chat.sendMessage(lastMessage.content)
+  const response = result.response
+
+  const functionCall = response.functionCalls()?.[0]
+  if (functionCall) {
+    return {
+      type: 'tool_call',
+      name: functionCall.name,
+      args: functionCall.args as Record<string, string>,
+    }
+  }
+
+  return { type: 'message', text: response.text() }
 }
